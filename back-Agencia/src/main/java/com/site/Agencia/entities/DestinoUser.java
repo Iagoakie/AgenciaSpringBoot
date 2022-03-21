@@ -1,18 +1,17 @@
 package com.site.Agencia.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -29,8 +28,8 @@ public class DestinoUser implements  Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	
-	@Column(name="Id")
-	private Long Id;
+	@Column(name="Id_DestinoUser")
+	private Long Id_Destino;
 	
 	@Column(name="Pais")
 	private String Pais;
@@ -46,31 +45,22 @@ public class DestinoUser implements  Serializable {
 	
 
 	
-    @ManyToOne
-	@JoinColumn(name = "Id_novouser")	
-	private NovoUser novouser;
+	@JsonIgnore
+	@OneToMany(mappedBy = "destinouser")
+	private List<NovoUser> users= new ArrayList<NovoUser>();
+	
     
     
     
-    
-    
-	public NovoUser getNovouser() {
-		return novouser;
-	}
-
-	public void setNovouser(NovoUser novouser) {
-		this.novouser = novouser;
-	}
-
 	public DestinoUser() {
 		super();
 		
 	}
 
-	public DestinoUser(Long Id, String pais, String cidade, String dataSaida, String dataChegada
+	public DestinoUser(Long id_Destino, String pais, String cidade, String dataSaida, String dataChegada
 			) {
 		super();
-		this.Id = Id;
+		this.Id_Destino = id_Destino;
 		this.Pais = pais;
 		this.Cidade = cidade;
 		this.DataSaida = dataSaida;
@@ -78,13 +68,13 @@ public class DestinoUser implements  Serializable {
 	}
 
 
-	public Long getId() {
-		return Id;
+	public Long getId_Destino() {
+		return Id_Destino;
 	}
 
 
-	public void setId(Long Id) {
-		this.Id = Id;
+	public void setId_Destino(Long Id_Destino) {
+		this.Id_Destino = Id_Destino;
 	}
 
 	public String getPais() {
@@ -131,14 +121,15 @@ public class DestinoUser implements  Serializable {
 	public void setDataChegada(String dataChegada) {
 		DataChegada = dataChegada;
 	}
-
-
-
-
+	
+	
+	public List<NovoUser> getUsers() {
+		return users;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Cidade, DataChegada, DataSaida, Id, Pais);
+		return Objects.hash(Id_Destino);
 	}
 
 	@Override
@@ -150,10 +141,10 @@ public class DestinoUser implements  Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		DestinoUser other = (DestinoUser) obj;
-		return Objects.equals(Cidade, other.Cidade) && Objects.equals(DataChegada, other.DataChegada)
-				&& Objects.equals(DataSaida, other.DataSaida) && Objects.equals(Id, other.Id)
-				&& Objects.equals(Pais, other.Pais);
+		return Id_Destino == other.Id_Destino;
 	}
+
+
 
 
 }

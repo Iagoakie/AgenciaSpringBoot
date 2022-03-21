@@ -1,7 +1,6 @@
 package com.site.Agencia.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,12 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -32,8 +28,8 @@ public class NovoUser implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	@Column(name="Id")
-	private Long Id;
+	@Column(name="Id_NovoUser")
+	private Long Id_NovoUser;
 	
 	@Column(name="nome")
 	private String nome;
@@ -44,38 +40,33 @@ public class NovoUser implements Serializable{
 	@Column(name="email")
 	private String email;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "novouser")
 	
-	private List<DestinoUser> destinos;
-	
+	 //FK edição
+
+	@ManyToOne
+	@JoinColumn(name = "Id_DestinoUser")	
+	private DestinoUser destinouser;
+	    
 	//private List<DestinoUser> destinos = new ArrayList<DestinoUser>();
 
 
 
+
+	public void setDestinouser(DestinoUser destinouser) {
+		this.destinouser = destinouser;
+	}
 
 	public NovoUser() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public List<DestinoUser> getDestinos() {
-		return destinos;
+	public Long getId_NovoUser() {
+		return Id_NovoUser;
 	}
 
-
-	public void setDestinos(List<DestinoUser> destinos) {
-		this.destinos = destinos;
-	}
-
-
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
+	public void setId_NovoUser(Long Id_NovoUser) {
+		this.Id_NovoUser = Id_NovoUser;
 	}
 
 	public String getNome() {
@@ -104,17 +95,46 @@ public class NovoUser implements Serializable{
 		this.email = email;
 	}
 
+	
+	public DestinoUser getDestinouser() {
+		return destinouser;
+	}
 
-	public NovoUser(Long id, String nome, String cPF, String email 
+	
+
+	public NovoUser(Long Id_NovoUser, String nome, String cPF, String email , DestinoUser destinouser
 			) {
 		super();
-		this.Id = id;
+		this.Id_NovoUser = Id_NovoUser;
 		this.nome = nome;
 		this.cpf = cPF;
 		this.email = email;
+		this.destinouser = destinouser;
 	}
-	 //FK edição
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(Id_NovoUser);
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NovoUser other = (NovoUser) obj;
+		return Objects.equals(Id_NovoUser, other.Id_NovoUser);
+	}
+	
+	
+	
+	
+	
+	
 	
 
 	//private String DestinoUserId_Destino;
@@ -133,26 +153,8 @@ public class NovoUser implements Serializable{
 	//	return DestinoUser;
 //	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(Id, cpf, destinos, email, nome);
-	}
 
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		NovoUser other = (NovoUser) obj;
-		return Objects.equals(Id, other.Id) && Objects.equals(cpf, other.cpf)
-				&& Objects.equals(destinos, other.destinos) && Objects.equals(email, other.email)
-				&& Objects.equals(nome, other.nome);
-	}
-
+	
 	
 	}
 

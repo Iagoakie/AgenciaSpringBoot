@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.site.Agencia.entities.DestinoUser;
 import com.site.Agencia.entities.NovoUser;
+import com.site.Agencia.repositories.DestinoUserRepository;
 import com.site.Agencia.repositories.NovoUserRepository;
 
 @Service
@@ -27,6 +29,9 @@ public class NovoUserController {
 	
 	@Autowired
 	private NovoUserRepository novoUserRepository;
+	
+	@Autowired
+	private DestinoUserRepository destinoRepository;
 	
 	//GET
 	@GetMapping
@@ -52,12 +57,16 @@ public class NovoUserController {
 		
 	//UPDATE
 		@PutMapping("{id}")
-		public ResponseEntity<NovoUser> update(@PathVariable Long id, @RequestBody NovoUser destinoDetails) {
+		public ResponseEntity<NovoUser> update(@PathVariable Long id, @RequestBody NovoUser novouserDetails) {
 			NovoUser updatenovouser = novoUserRepository.findById(id).get();
+			DestinoUser destino = destinoRepository.findById(novouserDetails.getDestinouser().getId_Destino()).get();
+
+			updatenovouser.setNome(novouserDetails.getNome());
+			updatenovouser.setCpf(novouserDetails.getCpf());
+			updatenovouser.setEmail(novouserDetails.getEmail());
 			
-			updatenovouser.setNome(destinoDetails.getNome());
-			updatenovouser.setCpf(destinoDetails.getCpf());
-			updatenovouser.setEmail(destinoDetails.getEmail());
+			updatenovouser.setDestinouser(destino);
+			
 
 			novoUserRepository.save(updatenovouser);
 			
