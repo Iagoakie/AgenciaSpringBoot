@@ -10,10 +10,10 @@ export default function Menu() {
               <div className="container">
                 <div className="navbar-header">
                   
-                  <a className="site-title">
+                  
                    
                     <span>Agência</span>Perfect
-                  </a>
+                  
                 </div>   
                 
    
@@ -29,13 +29,13 @@ export default function Menu() {
       <a href="/Promo">Promoções</a>
     </li>
     <li>
-      <a href="/Destinos">Destinos</a>
+      <a href="/DestinoUser">Destinos</a>
     </li>
     <li>
       <a href="/Contato">Contato</a>
     </li>
     <li>
-      <a href="/Cadastro">Cadastro</a>
+      <a href="/NovoUser">Cadastro</a>
     </li>
   </ul>
 </div>

@@ -3,23 +3,23 @@ import axios from "axios";
 const NovoUser_API_URL = "http://localhost:8080/NovoUser";
 
 class NovoUserService {
-  getAllLivros() {
+  getAllNovoUser() {
     return axios.get(NovoUser_API_URL);
   }
 
-  createLivro(user)) {
-    return axios.post(NovoUser_API_URL, );
+  createNovoUser(user) {
+    return axios.post(NovoUser_API_URL, user);
   }
 
-  getLivroById(userId) {
+  getNovoUserById(userId) {
     return axios.get(NovoUser_API_URL + "/" + userId);
   }
 
-  updateLivro(userId, user) {
+  updateNovoUser(userId, user) {
     return axios.put(NovoUser_API_URL + "/" + userId, user);
   }
 
-  deleteLivro(userId) {
+  deleteNovoUser(userId) {
     return axios.delete(NovoUser_API_URL + "/" + userId);
   }
 }

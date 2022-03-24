@@ -1,26 +1,26 @@
 import axios from "axios";
 
-const DESTINOUSER_API_URL = "http://localhost:8080/DestinoUser";
+const DESTINO_API_URL = "http://localhost:8080/DestinoUser";
 
 class DestinoUserService {
-  getAllAutores() {
-    return axios.get(DESTINOUSER_API_URL);
+  getAllDestinos() {
+    return axios.get(DESTINO_API_URL);
   }
 
-  createAutor(autor) {
-    return axios.post(DESTINOUSER_API_URL, autor);
+  createDestino(destino) {
+    return axios.post(DESTINO_API_URL, destino);
   }
 
-  getAutorById(autorId) {
-    return axios.get(DESTINOUSER_API_URL + "/" + autorId);
+  getDestinoById(destinoId) {
+    return axios.get(DESTINO_API_URL + "/" + destinoId);
   }
 
-  updateAutor(autorId, autor) {
-    return axios.put(DESTINOUSER_API_URL + "/" + autorId, autor);
+  updateDestino(destinoId, destino) {
+    return axios.put(DESTINO_API_URL + "/" + destinoId, destino);
   }
 
-  deleteAutor(autorId) {
-    return axios.delete(DESTINOUSER_API_URL + "/" + autorId);
+  deleteDestino(destinoId) {
+    return axios.delete(DESTINO_API_URL + "/" + destinoId);
   }
 }
 

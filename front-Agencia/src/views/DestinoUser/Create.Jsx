@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import AutorService from "../../services/AutorService";
+import DestinoUserService from "../../services/DestinoUserService";
 
 export default function Create() {
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [pais, setPais] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const criarOuEditarAutor = (e) => {
+  const criarOuEditarDestino = (e) => {
     e.preventDefault();
 
-    const autor = { nome, sobrenome};
+    const destino = { cidade, pais};
 
     if (id) {
-        AutorService.updateAutor(id, autor)
+        DestinoUserService.updateDestino(id, destino)
         .then((response) => {
-            navigate("/Autores")
+            navigate("/Destinos")
         })
 
     } else {
-        AutorService.createAutor(autor)
+        DestinoUserService.createDestino(destino)
         .then((response) => {
-            navigate("/Autores")
+            navigate("/Destinos")
         })
     }
   }
 
   useEffect(() => {
-      function getAutorById() {
+      function getDestinoById() {
         if (id) {
-            AutorService.getAutorById(id)
+            DestinoUserService.getDestinoById(id)
             .then((response) => {
-                setNome(response.data.nome);
-                setSobrenome(response.data.sobrenome);
+                setCidade(response.data.cidade);
+                setPais(response.data.pais);
             })
             .catch((error) => {
                 console.log(error);
             })
         }
       }
-      getAutorById()
+      getDestinoById()
   }, [id]);
 
   return (
@@ -51,38 +51,38 @@ export default function Create() {
             <h2 className="text-center">{id ? "Editar" : "Criar"}</h2>
           </legend>
           <div className="mb-3">
-            <label htmlFor="Nome" className="form-label">
-              Nome
+            <label htmlFor="Cidade" className="form-label">
+              Cidade
             </label>
             <input
               type="text"
-              id="Nome"
+              id="Cidade"
               className="form-control"
-              placeholder="Nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              placeholder="Cidade"
+              value={cidade}
+              onChange={(e) => setCidade(e.target.value)}
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
-              Sobrenome
+            <label htmlFor="Pais" className="form-label">
+              Pais
             </label>
             <input
               type="text"
-              id="Sobrenome"
+              id="Pais"
               className="form-control"
-              placeholder="Sobrenome"
-              value={sobrenome}
-              onChange={(e) => setSobrenome(e.target.value)}
+              placeholder="Pais"
+              value={pais}
+              onChange={(e) => setPais(e.target.value)}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarAutor(e)}>
+          <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarDestino(e)}>
             Enviar
           </button>
           <Link
-            to="/Autores"
+            to="/Destinos"
             className="btn btn-danger"
             style={{ marginLeft: "10px" }}
           >

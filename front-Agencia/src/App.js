@@ -1,5 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
+import Destino from"./views/DestinoUser/Index";
+import DestinoCreate from "./views/DestinoUser/Create.jsx";
+
+import NovoUser from"./views/NovoUser/Index";
+import NovoUserCreate from "./views/NovoUser/Create";
+
 import Home from "./pages/Home";
 import Promo from "./pages/Promo";
 import Destinos from "./pages/Destinos";
@@ -28,6 +35,15 @@ function App() {
       <Routes>
        
         <Route path="/" element={<Home/>} />
+
+        <Route path="/DestinoUser" element={<Destino/>} />
+        <Route path="/DestinoUser-Create" element={<DestinoCreate />} />
+        <Route path="/DestinoUser-Update/:id" element={<DestinoCreate />} />
+
+
+        <Route path="/NovoUser" element={<NovoUser/>} />
+        <Route path="/NovoUser-Create" element={<NovoUserCreate />} />
+        <Route path="/NovoUser-Update/:id" element={<NovoUserCreate />} />
        
         <Route path="/Promo" element={<Promo/>} />
         

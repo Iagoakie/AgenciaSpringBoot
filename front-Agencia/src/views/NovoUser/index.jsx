@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AutorService from "../../services/AutorService";
+import NovoUserService from "../../services/NovoUserService";
 
 export default function Index() {
-  const [autores, setAutores] = useState([]);
+  const [NovoUser, setNovoUsers] = useState([]);
 
-  const getAllAutores = () => {
-    AutorService.getAllAutores()
+ const getAllNovoUsers = () => {
+    NovoUserService.getAllNovoUsers()
       .then((response) => {
-        setAutores(response.data);
+        setNovoUsers(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -16,58 +16,63 @@ export default function Index() {
   };
 
   useEffect(() => {
-    getAllAutores();
+    getAllNovoUsers();
   }, []);
 
-  const deleteAutor = (autorId) => {
-    AutorService.deleteAutor(autorId)
-      .then((response) => {
-        getAllAutores();
+  const deleteNovoUser = (userId) => {
+    NovoUserService.deleteNovoUser(userId)
+      .thn((response) => {
+        getAllNovoUsers();
       })
       .catch((error) => {
         console.log(error);
-        const { data } = error.response;
-        if (data.status === 500) {
-          alert("Erro na API");
-        }
       });
   };
 
   return (
     <>
       <header className="header">
-        <h1 className="container">Cadastro Autor</h1>
+        <h1 className="container">Cadastro NovoUser</h1>
       </header>
-      <div className="container p-5">
-        <Link to="/Autores-Create" className="btn btn-primary mb-2">
-          Criar Autor
+      <div className="container py-3">
+        <Link to="/NovoUser-Create" className="btn btn-primary mb-2">
+          Criar NovoUser
         </Link>
         <div className="table-responsive">
-          <table className="table table-hover table-sm">
+          <table className="table">
             <thead>
               <tr>
                 <th>Id</th>
                 <th>Nome</th>
-                <th>Sobrenome</th>
-                <th>Ações</th>
+                <th>Idade</th>
+                <th>Cpf</th>
+                <th>Email</th>
+                <th>Destino</th>
+
               </tr>
             </thead>
             <tbody>
-              {autores.map((autor) => (
-                <tr key={autor.id_autor}>
-                  <td>{autor.id_autor}</td>
-                  <td>{autor.nome}</td>
-                  <td>{autor.sobrenome}</td>
+              {NovoUser.map((NovoUser) => (
+                <tr key={NovoUser.Id_NovoUser}>
+                  <td>{NovoUser.Id_NovoUser}</td>
+                  <td>{NovoUser.nome}</td>
+                  <td>{NovoUser.idade}</td>
+                  <td>{NovoUser.cPF}</td>
+                  <td>{NovoUser.email}</td>
+                
+                  <td>
+                    {NovoUser.Destino.Cidade} {NovoUser.Destino.Pais}
+                  </td>
                   <td className="d-flex">
                     <Link
-                      to={`/Autores-Update/${autor.id_autor}`}
+                      to={`/NovoUser-Update/${NovoUser.id_NovoUser}`}
                       className="btn btn-info"
                     >
                       Editar
                     </Link>
                     <button
                       className="btn btn-danger"
-                      onClick={() => deleteAutor(autor.id_autor)}
+                      onClick={() => deleteNovoUser(NovoUser.id_NovoUser)}
                       style={{ marginLeft: "10px" }}
                     >
                       Deletar
